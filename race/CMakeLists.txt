@@ -12,6 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   geometry_msgs
   tf
+  visualization_msgs
+  tf2
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -54,6 +57,9 @@ find_package(catkin REQUIRED COMPONENTS
     pid_input.msg
     perception.msg
     slam.msg
+    ekf.msg
+    final_coordinates.msg
+    path.msg
 	)
 
 ## Generate services in the 'srv' folder
@@ -108,7 +114,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES race
-  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs geometry_msgs
+  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs geometry_msgs 
 #  DEPENDS system_lib
 )
 
@@ -134,8 +140,8 @@ include_directories(
 # add_dependencies(race ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(race_node src/race_node.cpp)
-## add_executable(odom_scan_matcher src/getOdomFromMatcher.cpp)
+ add_executable(rrt src/rrt.cpp)
+ add_executable(planning src/planning.cpp)
 ## add_executable(hectorOdom src/hectorOdom.cpp)
 ## add_executable(amclOdom src/amclOdom.cpp)
 ## add_executable(processScan src/process_scan.cpp)
@@ -147,12 +153,12 @@ include_directories(
 
 
 ## Specify libraries to link a library or executable target against
-##  target_link_libraries(odom_scan_matcher
-##    ${catkin_LIBRARIES}
-##  )
-##  target_link_libraries(hectorOdom
-##    ${catkin_LIBRARIES}
-##  )
+  target_link_libraries(rrt
+    ${catkin_LIBRARIES}
+  )
+  target_link_libraries(planning
+    ${catkin_LIBRARIES}
+  )
 ## target_link_libraries(amclOdom
 ##    ${catkin_LIBRARIES}
 ##  )

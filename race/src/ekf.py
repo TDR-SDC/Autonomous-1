@@ -26,7 +26,7 @@ car_coordinate=[0,0]
 
 pub = rospy.Publisher('/err', pid_input, queue_size=10)
 
-def fall(data):
+def call(data):
 	print(data)
 	l=data.leftcone
 	r=data.rightcone
@@ -35,7 +35,7 @@ def fall(data):
 
 	
 sum=0
-def d(data):
+def c(data):
 	global car_coordinate 
 	car_coordinate[0]=data.x
 	car_coordinate[1]=data.y
@@ -161,9 +161,9 @@ def callback(data):
 	
 if __name__ == '__main__':
 	c=0
-	print("Hokuyo LIDAR node started") 
+	print("Hokuyo LIDAR node started")
 	rospy.init_node('dist_finder',anonymous = True)
 	rospy.Subscriber("/gt_pose",PoseStamped, callback)
-	rospy.Subscriber("/slam_to_distfinder",slam,fall)
-	rospy.Subscriber("/final_coordinates",final_coordinates, d)
+	rospy.Subscriber("/slam_to_distfinder",slam,call)
+	rospy.Subscriber("/final_coordinates",final_coordinates, c)
 	rospy.spin()
